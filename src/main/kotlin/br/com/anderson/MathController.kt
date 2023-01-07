@@ -1,5 +1,6 @@
 package br.com.anderson
 
+import br.com.anderson.exceptions.UnsupportedMathOperationException
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -13,7 +14,8 @@ class MathController {
     @RequestMapping(value = ["/sum/{numberOne}/{numberTwo}"])
     fun sum(@PathVariable(value = "numberOne") numberOne: String?,
             @PathVariable(value = "numberTwo") numberTwo: String?): Double {
-        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) throw Exception()
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo))
+            throw UnsupportedMathOperationException("Please set a numeric value!")
         return convertToDouble(numberOne) + convertToDouble(numberTwo)
     }
 
