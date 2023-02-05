@@ -1,1 +1,10 @@
-
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rest-spring-boot-kotlin-db?useTimezone=true&serverTimezone=UTC
+    username: docker
+    password: admin123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
