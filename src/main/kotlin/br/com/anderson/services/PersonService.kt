@@ -62,8 +62,7 @@ class PersonService {
         entity.address = person.address
         entity.gender = person.gender
 
-
-        return entity
+        return repository.save(entity)
     }
 
     fun delete(id: Long) {
