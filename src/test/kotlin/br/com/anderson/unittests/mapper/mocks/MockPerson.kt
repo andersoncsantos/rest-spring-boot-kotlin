@@ -1,6 +1,6 @@
 package br.com.anderson.unittests.mapper.mocks
 
-import br.com.anderson.dto.PersonDTO
+import br.com.anderson.dto.PersonDtoV1
 import br.com.anderson.model.Person
 
 
@@ -9,7 +9,7 @@ class MockPerson {
         return mockEntity(0)
     }
 
-    fun mockDTO(): PersonDTO {
+    fun mockDTO(): PersonDtoV1 {
         return mockDTO(0)
     }
 
@@ -21,8 +21,8 @@ class MockPerson {
         return persons
     }
 
-    fun mockDTOList(): ArrayList<PersonDTO> {
-        val persons: ArrayList<PersonDTO> = ArrayList()
+    fun mockDTOList(): ArrayList<PersonDtoV1> {
+        val persons: ArrayList<PersonDtoV1> = ArrayList()
         for (i in 0..13) {
             persons.add(mockDTO(i))
         }
@@ -39,8 +39,8 @@ class MockPerson {
         return person
     }
 
-    fun mockDTO(number: Int): PersonDTO {
-        val person = PersonDTO()
+    fun mockDTO(number: Int): PersonDtoV1 {
+        val person = PersonDtoV1()
         person.address = "Address Test$number"
         person.firstName = "First Name Test$number"
         person.gender = if (number % 2 == 0) "Male" else "Female"

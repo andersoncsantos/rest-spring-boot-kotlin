@@ -1,7 +1,7 @@
 package br.com.anderson.unittests.mapper
 
-import br.com.anderson.dto.PersonDTO
-import br.com.anderson.mapper.DozerMapper
+import br.com.anderson.dto.PersonDtoV1
+import br.com.anderson.mapper.PersonMapperImpl
 import br.com.anderson.model.Person
 import br.com.anderson.unittests.mapper.mocks.MockPerson
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 
-class DozerMapperTest {
+class MapperTest {
 
     var inputObject: MockPerson? = null
 
@@ -20,7 +20,7 @@ class DozerMapperTest {
 
     @Test
     fun parseEntityToDTOTest() {
-        val output: PersonDTO = DozerMapper.parseObject(inputObject!!.mockEntity(), PersonDTO::class.java)
+        val output: PersonDtoV1 = PersonMapperImpl().toDtoV1(inputObject!!.mockEntity())
         assertEquals(0, output.id)
         assertEquals("First Name Test0", output.firstName)
         assertEquals("Last Name Test0", output.lastName)
@@ -30,10 +30,10 @@ class DozerMapperTest {
 
     @Test
     fun parseEntityListToDTOListTest() {
-        val outputList: ArrayList<PersonDTO> =
-            DozerMapper.parseListObjects(inputObject!!.mockEntityList(), PersonDTO::class.java)
+        val outputList: ArrayList<PersonDtoV1> =
+            PersonMapperImpl().toDtoListV1(inputObject!!.mockEntityList())
 
-        val outputZero: PersonDTO = outputList[0]
+        val outputZero: PersonDtoV1 = outputList[0]
 
         assertEquals(0, outputZero.id)
         assertEquals("First Name Test0", outputZero.firstName)
@@ -41,14 +41,14 @@ class DozerMapperTest {
         assertEquals("Address Test0", outputZero.address)
         assertEquals("Male", outputZero.gender)
 
-        val outputSeven: PersonDTO = outputList[7]
+        val outputSeven: PersonDtoV1 = outputList[7]
         assertEquals(7.toLong(), outputSeven.id)
         assertEquals("First Name Test7", outputSeven.firstName)
         assertEquals("Last Name Test7", outputSeven.lastName)
         assertEquals("Address Test7", outputSeven.address)
         assertEquals("Female", outputSeven.gender)
 
-        val outputTwelve: PersonDTO = outputList[12]
+        val outputTwelve: PersonDtoV1 = outputList[12]
         assertEquals(12.toLong(), outputTwelve.id)
         assertEquals("First Name Test12", outputTwelve.firstName)
         assertEquals("Last Name Test12", outputTwelve.lastName)
@@ -59,7 +59,7 @@ class DozerMapperTest {
     @Test
     fun parseDTOToEntityTest() {
 
-        val output: Person = DozerMapper.parseObject(inputObject!!.mockDTO(), Person::class.java)
+        val output: Person = PersonMapperImpl().toEntityV1(inputObject!!.mockDTO())
 
         assertEquals(0, output.id)
         assertEquals("First Name Test0", output.firstName)
@@ -71,7 +71,7 @@ class DozerMapperTest {
     @Test
     fun parserDTOListToEntityListTest() {
 
-        val outputList: ArrayList<Person> = DozerMapper.parseListObjects(inputObject!!.mockDTOList(), Person::class.java)
+        val outputList: ArrayList<Person> = PersonMapperImpl().toEntityList(inputObject!!.mockDTOList())
 
         val outputZero: Person = outputList[0]
         assertEquals(0, outputZero.id)

@@ -17,7 +17,7 @@
 		<java.version>17</java.version>
 		<kotlin.version>1.7.22</kotlin.version>
 <!--		<dozer.version>6.5.2</dozer.version>-->
-		<dozer.version>6.4.1</dozer.version>
+<!--		<dozer.version>6.4.1</dozer.version>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -45,11 +45,11 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.github.dozermapper</groupId>
-			<artifactId>dozer-core</artifactId>
-			<version>${dozer.version}</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.github.dozermapper</groupId>-->
+<!--			<artifactId>dozer-core</artifactId>-->
+<!--			<version>${dozer.version}</version>-->
+<!--		</dependency>-->
 <!--		uncomment to use the dozer newest version-->
 <!--		<dependency>-->
 <!--			<groupId>jakarta.xml.bind</groupId>-->
