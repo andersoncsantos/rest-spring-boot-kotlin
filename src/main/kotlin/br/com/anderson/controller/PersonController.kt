@@ -1,7 +1,7 @@
 package br.com.anderson.controller
 
-import br.com.anderson.dto.PersonDtoV1
-import br.com.anderson.dto.PersonDtoV2
+import br.com.anderson.dto.PersonDtoVersion01
+import br.com.anderson.dto.PersonDtoVersion02
 import br.com.anderson.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -26,24 +26,32 @@ class PersonController {
         value = ["/v1"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun findAllV1(): List<PersonDtoV1> {
-        return service.findAllV1()
+    fun findAllVersion01(): List<PersonDtoVersion01> {
+        return service.findAllVersion01()
     }
 
     @GetMapping(
         value = ["/v2"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun findAllV2(): List<PersonDtoV2> {
-        return service.findAllV2()
+    fun findAllVersion02(): List<PersonDtoVersion02> {
+        return service.findAllVersion02()
     }
 
     @GetMapping(
-        value = ["/{id}"],
+        value = ["/v1/{id}"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun findById(@PathVariable(value = "id") id: Long): PersonDtoV1 {
-        return service.findById(id)
+    fun findByIdVersion01(@PathVariable(value = "id") id: Long): PersonDtoVersion01 {
+        return service.findByIdVersion01(id)
+    }
+
+    @GetMapping(
+        value = ["/v2/{id}"],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun findByIdVersion02(@PathVariable(value = "id") id: Long): PersonDtoVersion02 {
+        return service.findByIdVersion02(id)
     }
 
     @PostMapping(
@@ -51,16 +59,35 @@ class PersonController {
         produces = [MediaType.APPLICATION_JSON_VALUE],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun createV1(@RequestBody personDtoV1: PersonDtoV1): PersonDtoV1 {
-        return service.createV1(personDtoV1)
+    fun createVersion01(@RequestBody personDto: PersonDtoVersion01): PersonDtoVersion01 {
+        return service.createVersion01(personDto)
     }
 
-    @PutMapping(
+    @PostMapping(
+        value = ["/v2"],
         produces = [MediaType.APPLICATION_JSON_VALUE],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun update(@RequestBody personDTOV1: PersonDtoV1): PersonDtoV1 {
-        return service.update(personDTOV1)
+    fun createVersion02(@RequestBody personDto: PersonDtoVersion02): PersonDtoVersion02 {
+        return service.createVersion02(personDto)
+    }
+
+    @PutMapping(
+        value = ["/v1"],
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun updateVersion01(@RequestBody personDto: PersonDtoVersion01): PersonDtoVersion01 {
+        return service.updateVersion01(personDto)
+    }
+
+    @PutMapping(
+        value = ["/v2"],
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun updateVersion02(@RequestBody personDto: PersonDtoVersion02): PersonDtoVersion02 {
+        return service.updateVersion02(personDto)
     }
 
     @DeleteMapping(

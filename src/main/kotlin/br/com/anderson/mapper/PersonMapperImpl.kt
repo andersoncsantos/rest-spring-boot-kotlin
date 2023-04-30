@@ -1,15 +1,15 @@
 package br.com.anderson.mapper
 
-import br.com.anderson.dto.PersonDtoV1
-import br.com.anderson.dto.PersonDtoV2
+import br.com.anderson.dto.PersonDtoVersion01
+import br.com.anderson.dto.PersonDtoVersion02
 import br.com.anderson.model.Person
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class PersonMapperImpl: PersonMapper {
+class PersonMapperVersion01Impl: PersonMapperVersion01 {
 
-    override fun toDtoV1(person: Person): PersonDtoV1 {
-        return PersonDtoV1(
+    override fun toDto(person: Person): PersonDtoVersion01 {
+        return PersonDtoVersion01(
             id = person.id,
             firstName = person.firstName,
             lastName = person.lastName,
@@ -18,8 +18,41 @@ class PersonMapperImpl: PersonMapper {
         )
     }
 
-    override fun toDtoV2(person: Person): PersonDtoV2 {
-        return PersonDtoV2(
+    override fun toDtoList(origin: List<Person>): ArrayList<PersonDtoVersion01> {
+        val destinationObjects: ArrayList<PersonDtoVersion01> = ArrayList()
+
+        for (o in origin) {
+            destinationObjects.add(toDto(o))
+        }
+
+        return destinationObjects
+    }
+
+    override fun toEntity(personDto: PersonDtoVersion01): Person {
+        return Person(
+            id = personDto.id,
+            firstName = personDto.firstName,
+            lastName = personDto.lastName,
+            address = personDto.address,
+            gender = personDto.gender
+        )
+    }
+
+    override fun toEntityList(origin: List<PersonDtoVersion01>): ArrayList<Person> {
+        val destinationObjects: ArrayList<Person> = ArrayList()
+
+        for (o in origin) {
+            destinationObjects.add(toEntity(o))
+        }
+
+        return destinationObjects
+    }
+}
+
+class PersonMapperVersion02Impl: PersonMapperVersion02 {
+
+    override fun toDto(person: Person): PersonDtoVersion02 {
+        return PersonDtoVersion02(
             id = person.id,
             firstName = person.firstName,
             lastName = person.lastName,
@@ -29,51 +62,31 @@ class PersonMapperImpl: PersonMapper {
         )
     }
 
-    override fun toDtoListV1(origin: List<Person>): ArrayList<PersonDtoV1> {
-        val destinationObjects: ArrayList<PersonDtoV1> = ArrayList()
+    override fun toDtoList(origin: List<Person>): ArrayList<PersonDtoVersion02> {
+        val destinationObjects: ArrayList<PersonDtoVersion02> = ArrayList()
 
         for (o in origin) {
-            destinationObjects.add(toDtoV1(o))
+            destinationObjects.add(toDto(o))
         }
 
         return destinationObjects
     }
 
-    override fun toDtoListV2(origin: List<Person>): ArrayList<PersonDtoV2> {
-        val destinationObjects: ArrayList<PersonDtoV2> = ArrayList()
-
-        for (o in origin) {
-            destinationObjects.add(toDtoV2(o))
-        }
-
-        return destinationObjects
-    }
-
-    override fun toEntityV1(personDtoV1: PersonDtoV1): Person {
+    override fun toEntity(personDto: PersonDtoVersion02): Person {
         return Person(
-            id = personDtoV1.id,
-            firstName = personDtoV1.firstName,
-            lastName = personDtoV1.lastName,
-            address = personDtoV1.address,
-            gender = personDtoV1.gender
+            id = personDto.id,
+            firstName = personDto.firstName,
+            lastName = personDto.lastName,
+            address = personDto.address,
+            gender = personDto.gender
         )
     }
 
-    override fun toEntityV2(personDtoV2: PersonDtoV2): Person {
-        return Person(
-            id = personDtoV2.id,
-            firstName = personDtoV2.firstName,
-            lastName = personDtoV2.lastName,
-            address = personDtoV2.address,
-            gender = personDtoV2.gender,
-        )
-    }
-
-    override fun toEntityList(origin: List<PersonDtoV1>): ArrayList<Person> {
+    override fun toEntityList(origin: List<PersonDtoVersion02>): ArrayList<Person> {
         val destinationObjects: ArrayList<Person> = ArrayList()
 
         for (o in origin) {
-            destinationObjects.add(toEntityV1(o))
+            destinationObjects.add(toEntity(o))
         }
 
         return destinationObjects

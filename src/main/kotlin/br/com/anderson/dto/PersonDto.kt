@@ -2,8 +2,7 @@ package br.com.anderson.dto
 
 import java.time.ZonedDateTime
 
-
-data class PersonDtoV1(
+data class PersonDtoVersion01(
 
     var id: Long = 0,
     var firstName: String = "",
@@ -12,7 +11,7 @@ data class PersonDtoV1(
     var gender: String = ""
 )
 
-data class PersonDtoV2(
+data class PersonDtoVersion02(
 
     var id: Long = 0,
     var firstName: String = "",

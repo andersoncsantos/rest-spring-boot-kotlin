@@ -1,7 +1,7 @@
 package br.com.anderson.unittests.mapper
 
-import br.com.anderson.dto.PersonDtoV1
-import br.com.anderson.mapper.PersonMapperImpl
+import br.com.anderson.dto.PersonDtoVersion01
+import br.com.anderson.mapper.PersonMapperVersion01Impl
 import br.com.anderson.model.Person
 import br.com.anderson.unittests.mapper.mocks.MockPerson
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -20,7 +20,7 @@ class MapperTest {
 
     @Test
     fun parseEntityToDTOTest() {
-        val output: PersonDtoV1 = PersonMapperImpl().toDtoV1(inputObject!!.mockEntity())
+        val output: PersonDtoVersion01 = PersonMapperVersion01Impl().toDto(inputObject!!.mockEntity())
         assertEquals(0, output.id)
         assertEquals("First Name Test0", output.firstName)
         assertEquals("Last Name Test0", output.lastName)
@@ -30,10 +30,10 @@ class MapperTest {
 
     @Test
     fun parseEntityListToDTOListTest() {
-        val outputList: ArrayList<PersonDtoV1> =
-            PersonMapperImpl().toDtoListV1(inputObject!!.mockEntityList())
+        val outputList: ArrayList<PersonDtoVersion01> =
+            PersonMapperVersion01Impl().toDtoList(inputObject!!.mockEntityList())
 
-        val outputZero: PersonDtoV1 = outputList[0]
+        val outputZero: PersonDtoVersion01 = outputList[0]
 
         assertEquals(0, outputZero.id)
         assertEquals("First Name Test0", outputZero.firstName)
@@ -41,14 +41,14 @@ class MapperTest {
         assertEquals("Address Test0", outputZero.address)
         assertEquals("Male", outputZero.gender)
 
-        val outputSeven: PersonDtoV1 = outputList[7]
+        val outputSeven: PersonDtoVersion01 = outputList[7]
         assertEquals(7.toLong(), outputSeven.id)
         assertEquals("First Name Test7", outputSeven.firstName)
         assertEquals("Last Name Test7", outputSeven.lastName)
         assertEquals("Address Test7", outputSeven.address)
         assertEquals("Female", outputSeven.gender)
 
-        val outputTwelve: PersonDtoV1 = outputList[12]
+        val outputTwelve: PersonDtoVersion01 = outputList[12]
         assertEquals(12.toLong(), outputTwelve.id)
         assertEquals("First Name Test12", outputTwelve.firstName)
         assertEquals("Last Name Test12", outputTwelve.lastName)
@@ -59,7 +59,7 @@ class MapperTest {
     @Test
     fun parseDTOToEntityTest() {
 
-        val output: Person = PersonMapperImpl().toEntityV1(inputObject!!.mockDTO())
+        val output: Person = PersonMapperVersion01Impl().toEntity(inputObject!!.mockDTO())
 
         assertEquals(0, output.id)
         assertEquals("First Name Test0", output.firstName)
@@ -71,7 +71,7 @@ class MapperTest {
     @Test
     fun parserDTOListToEntityListTest() {
 
-        val outputList: ArrayList<Person> = PersonMapperImpl().toEntityList(inputObject!!.mockDTOList())
+        val outputList: ArrayList<Person> = PersonMapperVersion01Impl().toEntityList(inputObject!!.mockDTOList())
 
         val outputZero: Person = outputList[0]
         assertEquals(0, outputZero.id)
