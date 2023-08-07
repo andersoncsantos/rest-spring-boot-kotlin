@@ -24,7 +24,7 @@ class PersonController {
     private lateinit var service: PersonService
 
     @GetMapping(
-        produces = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE]
     )
     fun findAll(): List<PersonDto> {
         return service.findAll()
@@ -32,23 +32,23 @@ class PersonController {
 
     @GetMapping(
         value = ["/{id}"],
-        produces = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE]
     )
     fun findById(@PathVariable(value = "id") id: Long): PersonDto {
         return service.findById(id)
     }
 
     @PostMapping(
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-        consumes = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE]
     )
     fun create(@RequestBody personDto: PersonDto): PersonDto {
         return service.create(personDto)
     }
 
     @PutMapping(
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-        consumes = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE]
     )
     fun update(@RequestBody personDto: PersonDto): PersonDto {
         return service.update(personDto)
@@ -56,7 +56,7 @@ class PersonController {
 
     @DeleteMapping(
         value = ["/{id}"],
-        produces = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_ATOM_XML_VALUE]
     )
     fun delete(@PathVariable(value = "id") id: Long): ResponseEntity<*> {
         service.delete(id)
