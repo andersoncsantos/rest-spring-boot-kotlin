@@ -1,5 +1,6 @@
 package br.com.anderson.services.v2
 
+import br.com.anderson.controller.v2.PersonController
 import br.com.anderson.dto.v2.PersonDto
 import br.com.anderson.exceptions.ResourceNotFoundException
 import br.com.anderson.mapper.v2.PersonMapperImpl
@@ -7,6 +8,7 @@ import br.com.anderson.model.Person
 import br.com.anderson.repository.PersonRepository
 import java.util.logging.Logger
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
@@ -29,7 +31,9 @@ class PersonService {
         val person = repository.findById(id)
             .orElseThrow { ResourceNotFoundException("No records found for id: $id") }
 
-        return PersonMapperImpl().toDto(person)
+        val withSelfRel = linkTo(PersonController::class.java).slash(person.id).withSelfRel()
+
+        return PersonMapperImpl().toDto(person).add(withSelfRel)
     }
 
     fun create(personDto: PersonDto): PersonDto {

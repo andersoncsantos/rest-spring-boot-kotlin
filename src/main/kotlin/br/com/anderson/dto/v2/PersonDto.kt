@@ -3,6 +3,7 @@ package br.com.anderson.dto.v2
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
+import org.springframework.hateoas.RepresentationModel
 
 @JsonPropertyOrder("id", "first_name", "last_name", "gender", "birthDate")
 data class PersonDto(
@@ -22,4 +23,4 @@ data class PersonDto(
 
     @field:JsonIgnore
     var birthDate: String? = null
-)
+): RepresentationModel<PersonDto>()
