@@ -14,7 +14,7 @@ class PersonMapperImpl: PersonMapper {
             lastName = person.lastName,
             address = person.address,
             gender = person.gender,
-            birthDate = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))
+            birthDate = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).toString()
         )
     }
 

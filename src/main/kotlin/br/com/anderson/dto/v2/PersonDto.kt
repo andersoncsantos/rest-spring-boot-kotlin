@@ -3,7 +3,6 @@ package br.com.anderson.dto.v2
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
-import java.time.ZonedDateTime
 
 @JsonPropertyOrder("id", "first_name", "last_name", "gender", "birthDate")
 data class PersonDto(
@@ -20,5 +19,7 @@ data class PersonDto(
 
     @field:JsonIgnore
     var gender: String = "",
-    var birthDate: ZonedDateTime? = null
+
+    @field:JsonIgnore
+    var birthDate: String? = null
 )
