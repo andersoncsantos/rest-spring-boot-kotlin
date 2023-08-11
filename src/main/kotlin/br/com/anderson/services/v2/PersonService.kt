@@ -23,14 +23,20 @@ class PersonService {
 
     fun findAll(): List<PersonDto> {
         logger.info("Finding all records!")
-        return PersonMapperImpl().toDtoList(repository.findAll())
+        val personDtos = PersonMapperImpl().toDtoList(repository.findAll())
+
+        for (person in personDtos) {
+            val withSelfRel = linkTo(PersonController::class.java).slash(person.id).withSelfRel()
+            person.add(withSelfRel)
+        }
+
+        return personDtos
     }
 
     fun findById(id: Long): PersonDto {
         logger.info("Finding one person!")
         val person = repository.findById(id)
             .orElseThrow { ResourceNotFoundException("No records found for id: $id") }
-
         val withSelfRel = linkTo(PersonController::class.java).slash(person.id).withSelfRel()
 
         return PersonMapperImpl().toDto(person).add(withSelfRel)
@@ -38,21 +44,25 @@ class PersonService {
 
     fun create(personDto: PersonDto): PersonDto {
         logger.info("Creating one person with name: ${personDto.firstName}")
-        val entity: Person = PersonMapperImpl().toEntity(personDto)
-        return PersonMapperImpl().toDto(repository.save(entity))
+        val person: Person = PersonMapperImpl().toEntity(personDto)
+        val withSelfRel = linkTo(PersonController::class.java).slash(person.id).withSelfRel()
+
+        return PersonMapperImpl().toDto(repository.save(person)).add(withSelfRel)
     }
 
     fun update(personDto: PersonDto): PersonDto {
         logger.info("Updating one person with id: ${personDto.id}")
-        val entity = repository.findById(personDto.id)
+        val person = repository.findById(personDto.id)
             .orElseThrow { ResourceNotFoundException("No records found for id: ${personDto.id}") }
 
-        entity.firstName = personDto.firstName
-        entity.lastName = personDto.lastName
-        entity.address = personDto.address
-        entity.gender = personDto.gender
+        person.firstName = personDto.firstName
+        person.lastName = personDto.lastName
+        person.address = personDto.address
+        person.gender = personDto.gender
 
-        return PersonMapperImpl().toDto(repository.save(entity))
+        val withSelfRel = linkTo(PersonController::class.java).slash(person.id).withSelfRel()
+
+        return PersonMapperImpl().toDto(repository.save(person)).add(withSelfRel)
     }
 
     fun delete(id: Long) {
