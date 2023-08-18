@@ -26,7 +26,7 @@ class PersonController {
     @GetMapping(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun findAllVersion01(): List<PersonDto> {
+    fun findAll(): List<PersonDto> {
         return service.findAll()
     }
 
@@ -34,7 +34,7 @@ class PersonController {
         value = ["/{id}"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun findByIdVersion01(@PathVariable(value = "id") id: Long): PersonDto {
+    fun findById(@PathVariable(value = "id") id: Long): PersonDto {
         return service.findById(id)
     }
 
@@ -42,7 +42,7 @@ class PersonController {
         produces = [MediaType.APPLICATION_JSON_VALUE],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun createVersion01(@RequestBody personDto: PersonDto): PersonDto {
+    fun create(@RequestBody personDto: PersonDto): PersonDto {
         return service.create(personDto)
     }
 
@@ -50,7 +50,7 @@ class PersonController {
         produces = [MediaType.APPLICATION_JSON_VALUE],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun updateVersion01(@RequestBody personDto: PersonDto): PersonDto {
+    fun update(@RequestBody personDto: PersonDto): PersonDto {
         return service.update(personDto)
     }
 

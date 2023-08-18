@@ -1,6 +1,7 @@
 package br.com.anderson.exceptions.handler
 
 import br.com.anderson.exceptions.ExceptionResponse
+import br.com.anderson.exceptions.RequiredObjectIsNullException
 import br.com.anderson.exceptions.ResourceNotFoundException
 import java.util.Date
 import org.springframework.http.HttpStatus
@@ -23,9 +24,14 @@ class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(
     }
 
     @ExceptionHandler(ResourceNotFoundException::class)
-    fun handleBadRequestExceptions(exception: Exception, request: WebRequest): ResponseEntity<ExceptionResponse> {
+    fun handleResourceNotFoundExceptions(exception: Exception, request: WebRequest): ResponseEntity<ExceptionResponse> {
         val exceptionResponse = ExceptionResponse(Date(), exception.message, request.getDescription(false))
         return ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND)
     }
 
+    @ExceptionHandler(RequiredObjectIsNullException::class)
+    fun handleBadRequestExceptions(exception: Exception, request: WebRequest): ResponseEntity<ExceptionResponse> {
+        val exceptionResponse = ExceptionResponse(Date(), exception.message, request.getDescription(false))
+        return ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST)
+    }
 }

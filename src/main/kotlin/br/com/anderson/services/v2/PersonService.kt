@@ -2,6 +2,7 @@ package br.com.anderson.services.v2
 
 import br.com.anderson.controller.v2.PersonController
 import br.com.anderson.dto.v2.PersonDto
+import br.com.anderson.exceptions.RequiredObjectIsNullException
 import br.com.anderson.exceptions.ResourceNotFoundException
 import br.com.anderson.mapper.v2.PersonMapperImpl
 import br.com.anderson.model.Person
@@ -42,7 +43,8 @@ class PersonService {
         return PersonMapperImpl().toDto(person).add(withSelfRel)
     }
 
-    fun create(personDto: PersonDto): PersonDto {
+    fun create(personDto: PersonDto?): PersonDto {
+        if (personDto == null) throw RequiredObjectIsNullException()
         logger.info("Creating one person with name: ${personDto.firstName}")
         val person: Person = PersonMapperImpl().toEntity(personDto)
         val withSelfRel = linkTo(PersonController::class.java).slash(person.id).withSelfRel()
@@ -50,7 +52,8 @@ class PersonService {
         return PersonMapperImpl().toDto(repository.save(person)).add(withSelfRel)
     }
 
-    fun update(personDto: PersonDto): PersonDto {
+    fun update(personDto: PersonDto?): PersonDto {
+        if (personDto == null) throw RequiredObjectIsNullException()
         logger.info("Updating one person with id: ${personDto.id}")
         val person = repository.findById(personDto.id)
             .orElseThrow { ResourceNotFoundException("No records found for id: ${personDto.id}") }

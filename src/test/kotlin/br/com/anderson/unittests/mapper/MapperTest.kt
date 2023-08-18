@@ -3,7 +3,7 @@ package br.com.anderson.unittests.mapper
 import br.com.anderson.dto.v1.PersonDto
 import br.com.anderson.mapper.v1.PersonMapperImpl
 import br.com.anderson.model.Person
-import br.com.anderson.unittests.mapper.mocks.MockPerson
+import br.com.anderson.unittests.mapper.mocks.v1.MockPerson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 class MapperTest {
 
-    var inputObject: MockPerson? = null
+    private var inputObject: MockPerson? = null
 
     @BeforeEach
     fun setUp() {
