@@ -9,4 +9,4 @@ namespace: springbootapp
 images:
 - name: springbootapp
   newName: asan2019/argocd-example
-  newTag: 01feaf94ca4866dffaba90eefee1e3db282a84ac
+  newTag: 9019444af41434427a9ba308476aaf4b20d0854a
